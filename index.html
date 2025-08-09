@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EV Car Store</title>
+    <link rel="icon" type="image/png" href="assets/images/favicon.png">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav class="navbar">
+            <div class="logo">EV Cars</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#models">Models</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <button id="theme-toggle">🌙</button>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <h1>Drive the Future with EV Cars</h1>
+        <p>Experience cutting-edge technology and eco-friendly performance.</p>
+        <a href="#models" class="btn">Explore Models</a>
+    </section>
+
+    <!-- Models Section -->
+    <section id="models" class="models">
+        <h2>Our EV Models</h2>
+        <div class="car-grid">
+            <div class="car-card">
+                <img src="assets/images/EZ6.jpg" alt="Mazda EZ6">
+                <h3>Mazda EZ6</h3>
+                <p>$40,000</p>
+                <button class="view-details">View Details</button>
+            </div>
+            <div class="car-card">
+                <img src="assets/images/sealion7.jpg" alt="sealion7">
+                <h3>sealion7</h3>
+                <p>$85,000</p>
+                <button class="view-details">View Details</button>
+            </div>
+            <div class="car-card">
+                <img src="assets/images/model3.jpg" alt="Model 3">
+                <h3>Model 3</h3>
+                <p>$65,000</p>
+                <button class="view-details">View Details</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <h2>Why Choose Our EV Cars?</h2>
+        <div class="feature-grid">
+            <div class="feature-item">
+                <h3>⚡ Long Range</h3>
+                <p>Up to 400 miles on a single charge.</p>
+            </div>
+            <div class="feature-item">
+                <h3>🔋 Fast Charging</h3>
+                <p>Charge 80% in just 30 minutes.</p>
+            </div>
+            <div class="feature-item">
+                <h3>🤖 Autopilot</h3>
+                <p>Advanced self-driving technology.</p>
+            </div>
+            <div class="feature-item">
+                <h3>🎨 Modern Design</h3>
+                <p>Sleek and elegant design inside and out.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <h2>Contact Us</h2>
+        <form id="contactForm">
+            <input type="text" placeholder="Your Name" required>
+            <input type="email" placeholder="Your Email" required>
+            <input type="tel" placeholder="Phone Number" required>
+            <textarea placeholder="Your Message" required></textarea>
+            <button type="submit">Send Message</button>
+        </form>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 EV Cars. All rights reserved.</p>
+        <div class="social-icons">
+            <a href="#">🌐</a>
+            <a href="#">📘</a>
+            <a href="#">🐦</a>
+        </div>
+    </footer>
+
+    <!-- Modal -->
+    <div id="car-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <img id="modal-img" src="" alt="Car Image">
+            <h3 id="modal-title"></h3>
+            <p id="modal-price"></p>
+        </div>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>
