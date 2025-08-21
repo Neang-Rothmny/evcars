@@ -1,32 +1,36 @@
-name: deploy to production
+name: Deploy Website to Ubuntu VM
+
 on:
   push:
-    branches:
-      - main
+    branches: [main]
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    # environment: develop
+
     steps:
-      - name: list directories before checkout
-        run: ls -la
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-      - name: Checkout code
-        uses: actions/checkout@v2
+      - name: Deploy to server
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          DEPLOYMENT_DIRECTORY: ${{ vars.DEPLOYMENT_DIRECTORY }}
+          SSH_HOST: ${{ secrets.SERVER_IP }}
+          SSH_USER: ${{ vars.SSH_USER }}
+          SSH_HOST_PORT: ${{ vars.SSH_HOST_PORT }}
+        run: |
+          # Setup SSH key
+          mkdir -p ~/.ssh
+          echo "$SSH_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
 
-      - name: List directories after checkout
-        run: ls -la  
+          # Remove old deployment directory on server
+          ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no -p $SSH_HOST_PORT $SSH_USER@$SSH_HOST "rm -rf $DEPLOYMENT_DIRECTORY && mkdir -p $DEPLOYMENT_DIRECTORY"
 
-      # - name: Set up Node.js
-      #   uses: actions/setup-node@v2
-      #   with:
-      #     node-version: '14'
+          # Copy new files from GitHub runner to server
+          scp -r -P $SSH_HOST_PORT -o StrictHostKeyChecking=no ./* $SSH_USER@$SSH_HOST:$DEPLOYMENT_DIRECTORY
 
-      # - name: Install dependencies
-      #   run: npm install
-
-      # - name: Build the application
-      #   run: npm run build
-
-      # - name: Deploy to production
-      #   run: npm run deploy
+          # Restart Nginx to serve new files
+          ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no -p $SSH_HOST_PORT $SSH_USER@$SSH_HOST "sudo systemctl restart nginx"
