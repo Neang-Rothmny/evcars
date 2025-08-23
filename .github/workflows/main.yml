@@ -7,7 +7,7 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    # environment: develop
+    environment: develop
 
     steps:
       - name: Checkout repository
